@@ -473,6 +473,14 @@
   }
   .sb-promo { display: flex; align-items: center; gap: 5px; margin-top: 4px; }
   .sb-promo .sb-orig { margin-top: 0; }
+  /* 领券入口:实心橙pill,仅领券模式出现 */
+  .mj-go {
+    display: none;
+    font-size: 10px; font-weight: 600; color: #fff;
+    background: var(--orange); border-radius: 4px; padding: 2.5px 7px;
+    white-space: nowrap; cursor: pointer;
+  }
+  body.coupon .mj-go { display: inline-block; }
   /* 弹窗满减提示行:实时算账 + 凑单引导 */
   .sf-hint { font-size: 11.5px; color: var(--orange); margin-bottom: 8px; }
   .sf-hint:empty { display: none; }
@@ -749,7 +757,7 @@
           <div class="cc-info">
             <div class="cc-title">24周燃脂挑战营</div>
             <div class="cc-sub"><span class="cc-date">12.06–09.26</span><span class="cc-tag">核心提升</span></div>
-            <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span></div>
+            <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span><span class="mj-go">领券 ›</span></div>
             <div class="cc-bottom">
               <span class="cc-price"><span class="hui">会籍价</span><span class="y">¥</span><span class="n">199.9</span><span class="per">起 /节</span></span>
               <span class="cc-cta"><span class="cc-note">整营购</span><button class="cc-btn" type="button">立即报名</button></span>
@@ -766,7 +774,7 @@
           <div class="cc-info">
             <div class="cc-title">4周燃脂挑战营·燃脂冲刺班</div>
             <div class="cc-sub"><span class="cc-date">08.06–09.26</span><span class="cc-tag">减脂 · 塑形</span></div>
-            <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span></div>
+            <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span><span class="mj-go">领券 ›</span></div>
             <div class="cc-bottom">
               <span class="cc-price"><span class="y">¥</span><span class="n">329</span><span class="per">起 /节</span></span>
               <span class="cc-cta"><span class="cc-note">整营优先</span><button class="cc-btn" type="button">立即报名</button></span>
@@ -784,7 +792,7 @@
           <div class="cc-info">
             <div class="cc-title">新手入门训练营</div>
             <div class="cc-sub"><span class="cc-date">08.06–09.26</span><span class="cc-tag">核心提升 · 塑形</span></div>
-            <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span></div>
+            <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span><span class="mj-go">领券 ›</span></div>
             <div class="cc-bottom">
               <span class="cc-price"><span class="hui">会籍价</span><span class="y">¥</span><span class="n">9.9</span><span class="per">起 /节</span></span>
               <span class="cc-cta"><button class="cc-btn ghost" type="button">去候补</button></span>
@@ -1185,7 +1193,7 @@
       <div class="sb-row">
         <div class="sb-left">
           <div class="sb-price"><span class="y">¥</span><span class="n">1,299</span><span class="unit">/12节</span></div>
-          <div class="sb-promo"><span class="sb-orig">¥1,599</span><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span></div>
+          <div class="sb-promo"><span class="sb-orig">¥1,599</span><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span><span class="mj-go">领券 ›</span></div>
         </div>
         <button class="sb-btn open-sheet">立即报名</button>
       </div>
@@ -1497,7 +1505,7 @@
       <div class="sb-row">
         <div class="sb-left">
           <div class="sb-price"><span class="y">¥</span><span class="n">1,599</span><span class="unit">/12节</span></div>
-          <div class="sb-promo"><span class="sb-orig">¥1,899</span><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span></div>
+          <div class="sb-promo"><span class="sb-orig">¥1,899</span><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span><span class="mj-go">领券 ›</span></div>
         </div>
         <button class="sb-btn open-sheet">立即报名</button>
       </div>
@@ -1742,10 +1750,6 @@
       mode = m;
       modeBtns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-m') === m); });
       document.body.classList.toggle('coupon', m === 'coupon');
-      // B 模式满减标签可点,文案带「领券」前缀
-      document.querySelectorAll('.mj-tag').forEach(function (t) {
-        t.textContent = (m === 'coupon' ? '领券 ' : '') + t.getAttribute('data-t');
-      });
       fillOrder(lastSub, lastN);
     }
     modeBtns.forEach(function (b) {
@@ -1780,7 +1784,7 @@
     // 领券弹窗:B 模式下点满减标签打开
     var cpopMask = document.getElementById('cpopMask');
     var cpopBtn = document.getElementById('cpopBtn');
-    document.querySelectorAll('.mj-tag').forEach(function (t) {
+    document.querySelectorAll('.mj-tag, .mj-go').forEach(function (t) {
       t.addEventListener('click', function (e) {
         if (mode !== 'coupon') return;
         e.stopPropagation(); // 列表卡片标签不触发卡片跳转
