@@ -606,6 +606,7 @@
   .od-row.total { border-top: 1px solid var(--hairline); margin-top: 5px; padding-top: 13px; }
   .od-row.total .k { color: var(--ink); font-weight: 600; }
   .od-row .v.pay { color: var(--orange); font-weight: 700; font-size: 16px; }
+  .od-entry { display: flex; align-items: center; gap: 2px; font-size: 12.5px; color: var(--orange); }
   .od-paid { font-size: 13px; color: var(--gray-2); }
   .od-paid b { font-size: 19px; color: var(--ink); font-variant-numeric: tabular-nums; }
   .od-count { font-size: 11px; color: var(--orange); margin-top: 3px; font-variant-numeric: tabular-nums; }
@@ -760,7 +761,7 @@
             <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span><span class="mj-go">领券 ›</span></div>
             <div class="cc-bottom">
               <span class="cc-price"><span class="hui">会籍价</span><span class="y">¥</span><span class="n">199.9</span><span class="per">起 /节</span></span>
-              <span class="cc-cta"><span class="cc-note">整营购</span><button class="cc-btn" type="button">立即报名</button></span>
+              <span class="cc-cta"><span class="cc-note">可买单节</span><button class="cc-btn" type="button">立即报名</button></span>
             </div>
           </div>
         </div>
@@ -777,7 +778,7 @@
             <div class="cc-promo"><span class="mj-tag" data-t="满150减50">满150减50</span><span class="mj-tag" data-t="满400减120">满400减120</span><span class="mj-go">领券 ›</span></div>
             <div class="cc-bottom">
               <span class="cc-price"><span class="y">¥</span><span class="n">329</span><span class="per">起 /节</span></span>
-              <span class="cc-cta"><span class="cc-note">整营优先</span><button class="cc-btn" type="button">立即报名</button></span>
+              <span class="cc-cta"><span class="cc-note">可买单节</span><button class="cc-btn" type="button">立即报名</button></span>
             </div>
           </div>
         </div>
@@ -1665,7 +1666,17 @@
           <button class="od-claim" id="odClaim" hidden>领券</button>
           <span class="v disc" id="odDisc">-¥50.00</span>
         </div>
-        <div class="od-row total"><span class="k">待支付</span><span class="v pay" id="odPay">¥208.00</span></div>
+        <div class="od-row">
+          <span class="k"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 5.6a1 1 0 011-1h10a1 1 0 011 1v1.6a1.8 1.8 0 100 3.6v1.6a1 1 0 01-1 1H3a1 1 0 01-1-1v-1.6a1.8 1.8 0 100-3.6V5.6z" stroke="#f1662f" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.5 4.6v1.2M9.5 7.4v1.2M9.5 10.2v1.2" stroke="#f1662f" stroke-width="1.2" stroke-linecap="round"/></svg>单品优惠券</span>
+          <span class="od-entry">2张可用<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.4 2.8L7.6 6l-3.2 3.2" stroke="#f1662f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="od-row">
+          <span class="k"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 5.6a1 1 0 011-1h10a1 1 0 011 1v1.6a1.8 1.8 0 100 3.6v1.6a1 1 0 01-1 1H3a1 1 0 01-1-1v-1.6a1.8 1.8 0 100-3.6V5.6z" stroke="#f1662f" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.5 4.6v1.2M9.5 7.4v1.2M9.5 10.2v1.2" stroke="#f1662f" stroke-width="1.2" stroke-linecap="round"/></svg>订单优惠券</span>
+          <span class="od-entry">2张可用<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.4 2.8L7.6 6l-3.2 3.2" stroke="#f1662f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="od-row"><span class="k">会员折扣（95折）</span><span class="v" id="odVip">-¥10.40</span></div>
+        <div class="od-row"><span class="k">储蓄卡支付</span><span class="v" id="odCard">-¥50.00</span></div>
+        <div class="od-row total"><span class="k">待支付</span><span class="v pay" id="odPay">¥147.60</span></div>
       </div>
 
       <div class="mod-card">
@@ -1686,7 +1697,7 @@
     <div class="signup-bar">
       <div class="sb-row">
         <div class="sb-left">
-          <div class="od-paid">实付款：<b id="odPaid">¥208.00</b></div>
+          <div class="od-paid">实付款：<b id="odPaid">¥147.60</b></div>
           <div class="od-count">优惠倒计时 20:42:20</div>
         </div>
         <button class="sb-btn">确认预约</button>
@@ -1776,8 +1787,12 @@
         dv.style.display = eff ? '' : 'none';
         dv.textContent = '-¥' + eff.toFixed(2);
       }
-      document.getElementById('odPay').textContent = fmt(sub - eff);
-      document.getElementById('odPaid').textContent = fmt(sub - eff);
+      var vip = Math.round((sub - eff) * 0.05 * 100) / 100; // 会员折扣 95 折
+      var card = 50; // 储蓄卡支付(演示固定额)
+      var pay = Math.max(0, Math.round((sub - eff - vip - card) * 100) / 100);
+      document.getElementById('odVip').textContent = '-¥' + vip.toFixed(2);
+      document.getElementById('odPay').textContent = fmt(pay);
+      document.getElementById('odPaid').textContent = fmt(pay);
       document.getElementById('odCount').textContent = '9月29日 – 10月3日 · 已选' + n + '节';
     }
 
